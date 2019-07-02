@@ -27,8 +27,7 @@ public class ProgramsAdapter extends PagedListAdapter<Program, ListItemWithStyle
     @NonNull
     @Override
     public ListItemWithStyleHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_with_style, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_with_style, parent, false);
         return new ListItemWithStyleHolder(itemView);
     }
 
@@ -40,7 +39,6 @@ public class ProgramsAdapter extends PagedListAdapter<Program, ListItemWithStyle
                 "Program with registration" : "Program without registration");
         StyleBinderHelper.bindStyle(holder, program.style());
 
-        holder.card.setOnClickListener(view -> programSelectionListener
-                .onProgramSelected(program.uid(), program.programType()));
+        holder.card.setOnClickListener(view -> programSelectionListener.onProgramSelected(program.uid(), program.programType()));
     }
 }
