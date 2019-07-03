@@ -54,7 +54,7 @@ public class TrackedEntityInstancesActivity extends ListActivity {
         if (isEmpty(selectedProgram)) findViewById(R.id.enrollmentButton).setVisibility(View.GONE);
 
         findViewById(R.id.enrollmentButton).setOnClickListener(view -> {
-            String teiUid = null;
+//            String teiUid = Sdk.d2().programModule().programs.uid(selectedProgram).get().trackedEntityType().uid();
 
             //TODO Create a new TEI and open the EnrollmentFormActivity if success
             OrganisationUnit organisationUnit = Sdk.d2().organisationUnitModule().organisationUnits
