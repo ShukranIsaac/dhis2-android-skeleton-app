@@ -14,8 +14,7 @@ public class DataCreator {
     private static String addTEIProjection() throws D2Error {
         String orgUnitUid = Sdk.d2().organisationUnitModule().organisationUnits.one().get().uid();
         String tackedEntityTypeUid = Sdk.d2().trackedEntityModule().trackedEntityTypes.one().get().uid();
-        TrackedEntityInstanceCreateProjection projection
-                = TrackedEntityInstanceCreateProjection.create(orgUnitUid, tackedEntityTypeUid);
+        TrackedEntityInstanceCreateProjection projection = TrackedEntityInstanceCreateProjection.create(orgUnitUid, tackedEntityTypeUid);
         return Sdk.d2().trackedEntityModule().trackedEntityInstances.add(projection);
     }
 
