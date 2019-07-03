@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.paging.PagedList;
 
 import com.example.android.androidskeletonapp.R;
+import com.example.android.androidskeletonapp.data.Sdk;
 import com.example.android.androidskeletonapp.ui.base.ListActivity;
 import com.example.android.androidskeletonapp.ui.tracked_entity_instances.TrackedEntityInstanceAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,12 +17,18 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.hisp.dhis.android.core.arch.helpers.UidsHelper;
 import org.hisp.dhis.android.core.organisationunit.OrganisationUnit;
+import org.hisp.dhis.android.core.organisationunit.OrganisationUnitMode;
 import org.hisp.dhis.android.core.program.Program;
+import org.hisp.dhis.android.core.program.ProgramType;
 import org.hisp.dhis.android.core.trackedentity.TrackedEntityAttribute;
 import org.hisp.dhis.android.core.trackedentity.TrackedEntityInstance;
+import org.hisp.dhis.android.core.trackedentity.search.QueryFilter;
+import org.hisp.dhis.android.core.trackedentity.search.QueryItem;
+import org.hisp.dhis.android.core.trackedentity.search.QueryOperator;
 import org.hisp.dhis.android.core.trackedentity.search.TrackedEntityInstanceQuery;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TrackedEntityInstanceSearchActivity extends ListActivity {
@@ -34,8 +41,7 @@ public class TrackedEntityInstanceSearchActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setUp(R.layout.activity_tracked_entity_instance_search, R.id.trackedEntityInstancesToolbar,
-                R.id.trackedEntityInstanceRecyclerView);
+        setUp(R.layout.activity_tracked_entity_instance_search, R.id.trackedEntityInstancesToolbar, R.id.trackedEntityInstanceRecyclerView);
 
         notificator = findViewById(R.id.dataNotificator);
         downloadDataText = findViewById(R.id.downloadDataText);
@@ -60,13 +66,20 @@ public class TrackedEntityInstanceSearchActivity extends ListActivity {
         recyclerView.setAdapter(adapter);
 
         // TODO Get list of SEARCH root organisation units
-        List<OrganisationUnit> organisationUnits = new ArrayList<>();
-
+        List<OrganisationUnit> organisationUnits = Sdk.d2().organisationUnitModule().organisationUnits
+                .byOrganisationUnitScope(OrganisationUnit.Scope.SCOPE_TEI_SEARCH)
+                .byRootOrganisationUnit(true).get();
         // TODO Get first program with registration
-        Program program = null;
+        Program program = Sdk.d2().programModule().programs
+                .byProgramType().eq(ProgramType.WITH_REGISTRATION)
+                .one()
+                .get();
 
         // TODO Get TrackedEntityAttribute with name equal to "Malaria patient id"
-        TrackedEntityAttribute attribute = null;
+        TrackedEntityAttribute attribute = Sdk.d2().trackedEntityModule().trackedEntityAttributes
+                .byName().eq("Malaria patient name")
+                .one()
+                .get();
 
         List<String> organisationUids = new ArrayList<>();
         if (!organisationUnits.isEmpty()) {
@@ -75,11 +88,12 @@ public class TrackedEntityInstanceSearchActivity extends ListActivity {
 
         TrackedEntityInstanceQuery query = TrackedEntityInstanceQuery.builder()
                 // TODO Filter by organisationUnits in DESCENDANT mode
-
+                .orgUnits(organisationUids)
+                .orgUnitMode(OrganisationUnitMode.DESCENDANTS)
                 // TODO Filter by program
-
+                .program(program.uid())
                 // TODO Use "filter" property to filter the previous attribute by "like=a"
-
+                .filter(Collections.singletonList(QueryItem.create(attribute.uid(), QueryFilter.builder().operator(QueryOperator.LIKE).filter(attribute.name()).build())))
                 .pageSize(15)
                 .paging(true)
                 .page(1)
@@ -99,6 +113,9 @@ public class TrackedEntityInstanceSearchActivity extends ListActivity {
         // TODO Use trackedEntityInstanceQuery to return a pagedList with onlineFirst() strategy
         //  paged by 10
 
-        return null;
+        return Sdk.d2().trackedEntityModule().trackedEntityInstanceQuery
+                .query(query)
+                .onlineFirst()
+                .getPaged(20);
     }
 }
