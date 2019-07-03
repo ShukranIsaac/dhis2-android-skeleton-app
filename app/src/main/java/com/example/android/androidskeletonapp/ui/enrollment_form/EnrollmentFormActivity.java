@@ -14,6 +14,9 @@ import com.example.android.androidskeletonapp.databinding.ActivityEnrollmentForm
 
 import org.hisp.dhis.android.core.maintenance.D2Error;
 import org.hisp.dhis.rules.RuleEngine;
+import org.hisp.dhis.rules.models.RuleActionHideField;
+import org.hisp.dhis.rules.models.RuleActionHideSection;
+import org.hisp.dhis.rules.models.RuleEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.processors.PublishProcessor;
@@ -110,8 +115,13 @@ public class EnrollmentFormActivity extends AppCompatActivity {
         disposable.add(
                 // TODO Zip attributes and rule engine calculation
                 engineInitialization
-                        .flatMap(next -> EnrollmentFormService.getInstance().getEnrollmentFormFields()
-                                         .subscribeOn(Schedulers.io()))
+                        .flatMap(next -> Flowable.zip(
+                                EnrollmentFormService.getInstance()
+                                        .getEnrollmentFormFields().subscribeOn(Schedulers.io()),
+                                engineService.ruleEnrollment()
+                                        .flatMap(ruleEnrollment -> ruleEngine.evaluate(ruleEnrollment).call()))
+                                    .subscribeOn(Schedulers.io())),
+                                    this::applyEffects)
                         .map(this::applyEffects)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -135,8 +145,17 @@ public class EnrollmentFormActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private List<FormField> applyEffects(Map<String, FormField> fields) {
+    private List<FormField> applyEffects(Map<String, FormField> fields, List<RuleEffect> effects) {
         // TODO Apply rule engine effects
+        for (RuleEffect effect : effects) {
+            if (effect.ruleAction() instanceof RuleActionHideField) {
+                RuleActionHideField ruleActionHideField = (RuleActionHideField) effect.ruleAction();
+                fields.remove(ruleActionHideField);
+            } else if (effect.ruleAction() instanceof RuleActionHideSection) {
+                RuleActionHideSection ruleActionHideSection = (RuleActionHideSection) effect.ruleAction();
+                ruleActionHideSection.programStageSection();
+            }
+        }
         return new ArrayList<>(fields.values());
     }
 
