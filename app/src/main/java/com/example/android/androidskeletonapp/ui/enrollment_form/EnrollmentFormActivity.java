@@ -27,8 +27,7 @@ public class EnrollmentFormActivity extends AppCompatActivity {
         TEI_UID, PROGRAM_UID, OU_UID
     }
 
-    public static Intent getFormActivityIntent(Context context, String teiUid, String programUid,
-                                               String orgUnitUid) {
+    public static Intent getFormActivityIntent(Context context, String teiUid, String programUid, String orgUnitUid) {
         Intent intent = new Intent(context, EnrollmentFormActivity.class);
         intent.putExtra(IntentExtra.TEI_UID.name(), teiUid);
         intent.putExtra(IntentExtra.PROGRAM_UID.name(), programUid);
@@ -48,15 +47,22 @@ public class EnrollmentFormActivity extends AppCompatActivity {
 
         binding.buttonEnd.setOnClickListener(this::finishEnrollment);
 
-        EnrollmentFormService.getInstance().init(
-                Sdk.d2(),
-                getIntent().getStringExtra(IntentExtra.TEI_UID.name()),
-                getIntent().getStringExtra(IntentExtra.PROGRAM_UID.name()),
-                getIntent().getStringExtra(IntentExtra.OU_UID.name()));
+        try {
+            EnrollmentFormService.getInstance().init(
+                    Sdk.d2(),
+                    getIntent().getStringExtra(IntentExtra.TEI_UID.name()),
+                    getIntent().getStringExtra(IntentExtra.PROGRAM_UID.name()),
+                    getIntent().getStringExtra(IntentExtra.OU_UID.name()));
+        } catch (D2Error d2Error) {
+            d2Error.printStackTrace();
+        }
     }
 
     private void createAttributeValue(String attributeUid, String value) throws D2Error {
         // TODO Create attribute value
+        Sdk.d2().trackedEntityModule().trackedEntityAttributeValues
+                .value(attributeUid, getIntent().getStringExtra(IntentExtra.TEI_UID.name()))
+                .set(value);
     }
 
     @Override
