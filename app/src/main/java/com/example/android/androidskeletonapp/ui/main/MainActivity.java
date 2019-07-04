@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.hisp.dhis.android.core.program.Program;
 import org.hisp.dhis.android.core.user.User;
 
 import java.text.MessageFormat;
@@ -232,6 +233,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+//        Program program = Sdk.d2().programModule().programs
+//                .one().get();
+//
+//        program.access().data().read();
+
         int id = item.getItemId();
 
         if (id == R.id.navPrograms) {
