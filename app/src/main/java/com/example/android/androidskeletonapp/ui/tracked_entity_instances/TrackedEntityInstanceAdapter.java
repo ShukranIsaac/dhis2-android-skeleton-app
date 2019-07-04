@@ -46,7 +46,7 @@ public class TrackedEntityInstanceAdapter extends PagedListAdapter<TrackedEntity
         holder.title.setText(valueAt(values, attributePatientNameUid()));
         holder.subtitle1.setText(valueAt(values, attributePatientIdUid()));
         holder.subtitle2.setText(setSubtitle2(values));
-        holder.rightText.setText(DateFormatHelper.formatDate(trackedEntityInstance.created()));
+//        holder.rightText.setText(DateFormatHelper.formatDate(trackedEntityInstance.created()));
         holder.icon.setImageResource(R.drawable.ic_person_black_24dp);
         setBackgroundColor(R.color.colorAccentDark, holder.icon);
         setState(trackedEntityInstance.state(), holder.syncIcon);

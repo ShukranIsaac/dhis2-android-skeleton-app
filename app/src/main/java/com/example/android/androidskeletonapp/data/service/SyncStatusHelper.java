@@ -28,6 +28,8 @@ public class SyncStatusHelper {
 
     public static boolean isThereDataToUpload() {
         // TODO Logic to know if there is data to upload
-        return true;
+        return Sdk.d2().trackedEntityModule().trackedEntityInstances
+                .byState().in(State.TO_POST, State.TO_UPDATE, State.TO_DELETE)
+                .count() > 0;
     }
 }
