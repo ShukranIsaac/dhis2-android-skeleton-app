@@ -34,6 +34,6 @@ public class DataSetsAdapter extends PagedListAdapter<DataSet, ListItemWithStyle
         DataSet dataSet = getItem(position);
         holder.title.setText(dataSet != null ? dataSet.displayName() : null);
         holder.subtitle1.setText(dataSet != null ? Objects.requireNonNull(dataSet.periodType()).name() : null);
-        StyleBinderHelper.bindStyle(holder, dataSet.style());
+        StyleBinderHelper.bindStyle(holder, dataSet != null ? dataSet.style() : null);
     }
 }
