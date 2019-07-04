@@ -28,5 +28,11 @@ public class DataSetReportsActivity extends ListActivity {
         // TODO Get a LiveData for a PagedList from dataSetReports repository (dataValueModule)
         //  Pass this LiveData to the dataSetAdapter
         //  HINT: look at DataSetsActivity as a template
+        LiveData<PagedList<DataSetReport>> pagedListLiveData = Sdk.d2().dataValueModule().dataSetReports.getPaged(20);
+
+        pagedListLiveData.observe(this, pagedListDataSet -> {
+            adapter.submitList(pagedListDataSet);
+            findViewById(R.id.dataSetReportsNotificator).setVisibility(pagedListDataSet.isEmpty() ? View.VISIBLE : View.GONE);
+        });
     }
 }

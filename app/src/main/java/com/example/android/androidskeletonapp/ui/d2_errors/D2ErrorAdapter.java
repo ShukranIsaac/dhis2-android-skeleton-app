@@ -35,7 +35,7 @@ public class D2ErrorAdapter extends PagedListAdapter<D2Error, ListItemHolder> {
         holder.title.setText(d2Error.errorCode().toString());
         holder.subtitle1.setText(d2Error.errorDescription());
         holder.subtitle2.setText(d2Error.errorComponent().toString());
-        holder.rightText.setText(DateFormatHelper.formatDate(d2Error.created()));
+//        holder.rightText.setText(DateFormatHelper.formatDate(d2Error.created()));
         holder.icon.setImageResource(R.drawable.ic_error_outline_black_24dp);
         setBackgroundColor(R.color.colorAccentDark, holder.icon);
     }
