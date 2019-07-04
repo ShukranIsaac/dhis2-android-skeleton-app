@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void inflateMainView() {
         syncMetadataButton = findViewById(R.id.syncMetadataButton);
         syncDataButton = findViewById(R.id.syncDataButton);
-        // TODO bind uploadDataButton to "uploadDataButton" view
+        // TODO use an upload button to upload data
 
         syncStatusText = findViewById(R.id.notificator);
         progressBar = findViewById(R.id.syncProgressBar);
@@ -112,15 +112,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             syncStatusText.setText(R.string.syncing_data);
             downloadData();
         });
-
-        // TODO Listen to uploadDataButton and execute these actions:
-
-            // TODO Set syncing
-            // TODO Show a snackbar to notify about the action
-
-            // TODO trigger data upload and subscribe (do not subscribe on the main thread!!!)
-            // TODO You have to use, at least: subscribeOn(), observeOn(), doOnComplete(), subscribe()
-            // TODO Call setSyncFinished on complete
     }
 
     private void setSyncing() {
