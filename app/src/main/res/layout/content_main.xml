@@ -131,16 +131,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/uploadDataText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/upload_data"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -162,15 +152,7 @@
             android:layout_marginBottom="@dimen/fab_margin_with_text"
             app:srcCompat="@drawable/ic_person_black_24dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/uploadDataButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:tint="@color/colorWhite"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin_with_text"
-            app:srcCompat="@drawable/ic_cloud_upload_black_24dp" />
+        <!--TODO add upload button-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
