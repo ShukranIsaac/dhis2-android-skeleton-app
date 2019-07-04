@@ -10,6 +10,7 @@ import com.example.android.androidskeletonapp.R;
 import com.example.android.androidskeletonapp.data.Sdk;
 import com.example.android.androidskeletonapp.data.service.ActivityStarter;
 import com.example.android.androidskeletonapp.data.service.SyncStatusHelper;
+import com.example.android.androidskeletonapp.ui.d2_errors.D2ErrorActivity;
 import com.example.android.androidskeletonapp.ui.programs.ProgramsActivity;
 import com.example.android.androidskeletonapp.ui.tracked_entity_instances.TrackedEntityInstancesActivity;
 import com.example.android.androidskeletonapp.ui.tracked_entity_instances.search.TrackedEntityInstanceSearchActivity;
@@ -270,6 +271,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             wipeData();
         } else if (id == R.id.navExit) {
             compositeDisposable.add(logOut(this));
+        } else if (id == R.id.d2Errors) {
+            ActivityStarter.startActivity(this, D2ErrorActivity.class, false);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawerLayout);

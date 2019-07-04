@@ -18,6 +18,10 @@
             android:title="@string/title_activity_tracked_entity_search" />
 
         <!--TODO Add item to launch d2 errors activity-->
+        <item
+            android:id="@+id/d2Errors"
+            android:icon="@drawable/ic_error_outline_black_24dp"
+            android:title="@string/title_activity_d2_errors" />
 
     </group>
 
