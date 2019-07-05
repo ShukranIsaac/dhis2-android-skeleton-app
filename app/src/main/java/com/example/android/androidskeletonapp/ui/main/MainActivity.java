@@ -1,5 +1,6 @@
 package com.example.android.androidskeletonapp.ui.main;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.hisp.dhis.android.core.user.User;
+import org.hisp.dhis.android.core.user.UserTableInfo;
 
 import java.text.MessageFormat;
 
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // TODO get user from cursor
         User user = getUser();
         TextView greeting = findViewById(R.id.greeting);
-        greeting.setText(String.format("Hi %s!", user.displayName()));
+        greeting.setText(String.format("Hi %s(%s)!", user.surname(), user.email()));
 
         inflateMainView();
         createNavigationView(user);
@@ -74,7 +76,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private User getUser() {
-        return Sdk.d2().userModule().user.getWithoutChildren();
+        User user = null;
+        Cursor cursor = Sdk.d2().databaseAdapter()
+                .query("SELECT DISTINCT * FROM " + UserTableInfo.TABLE_INFO.name() + ";");
+        if (cursor != null && cursor.moveToFirst()) {
+            user = User.create(cursor);
+            cursor.close();
+        }
+        return user;
     }
 
     @Override

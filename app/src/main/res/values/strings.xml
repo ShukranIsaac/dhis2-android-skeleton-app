@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Dhis2 Skeleton App</string>
     <!-- Strings related to login -->
-    <string name="title_activity_login">Log in</string>
+    <string name="title_activity_login" translatable="false">Log in</string>
     <string name="prompt_server_url">Server url</string>
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
@@ -22,31 +22,31 @@
     <string name="item_subtitle_1">Item subtitle 1</string>
     <string name="item_subtitle_2">Item subtitle 2</string>
     <!-- Strings related to main -->
-    <string name="title_activity_main">Home</string>
-    <string name="welcome">"Welcome!"</string>
+    <string name="title_activity_main" translatable="false">Home</string>
+    <string name="welcome" translatable="false">"Welcome!"</string>
     <string name="lorem_ipsum">"Lorem ipsum dolor sit amet"</string>
     <string name="syncing_metadata">Syncing metadata…</string>
     <string name="syncing_data">Syncing data…</string>
     <string name="sync_metadata">Sync metadata</string>
     <string name="sync_data">Sync data</string>
-    <string name="upload_data">Upload data</string>
-    <string name="uploading_data">Uploading data…</string>
-    <string name="wiping_data">Wiping data…</string>
+    <string name="upload_data" translatable="false">Upload data</string>
+    <string name="uploading_data" translatable="false">Uploading data…</string>
+    <string name="wiping_data" translatable="false">Wiping data…</string>
     <string name="log_out">Log out</string>
-    <string name="wipe_data">Wipe data</string>
+    <string name="wipe_data" translatable="false">Wipe data</string>
     <!-- Strings related to programs -->
-    <string name="title_activity_programs">Your programs</string>
+    <string name="title_activity_programs" translatable="false">Your programs</string>
     <string name="program_name">Program Name</string>
     <string name="program_icon">Program Icon</string>
     <string name="program_stages">2 Program stages</string>
     <string name="no_programs_found">No programs found</string>
     <!-- Strings related to tracked entity instances search -->
-    <string name="title_activity_tracked_entity_search">Tracked entities search</string>
+    <string name="title_activity_tracked_entity_search" translatable="false">Tracked entities search</string>
     <string name="search_data">Search data</string>
     <string name="searching">Searching data…</string>
     <!-- Strings related to tracked entity instances -->
-    <string name="title_activity_tracked_entity_instances">Your tracked entity instances</string>
-    <string name="tracked_entity_instance_name">Tracked Entity Instance Name</string>
+    <string name="title_activity_tracked_entity_instances" translatable="false">Your tracked entity instances</string>
+    <string name="tracked_entity_instance_name" translatable="false">Tracked Entity Instance Name</string>
     <string name="unique_id">1234</string>
     <string name="no_tracked_entity_instances_found">No tracked entity instances found</string>
     <!-- Strings related to navigation -->
@@ -60,18 +60,18 @@
     <string name="title_activity_d2_errors">Your errors</string>
     <string name="no_d2_errors_found">No errors found</string>
     <!-- Strings related to errors -->
-    <string name="title_activity_fk_violations">Foreign key violations</string>
+    <string name="title_activity_fk_violations" translatable="false">Foreign key violations</string>
     <string name="no_fk_violations_found">No foreign key violations found</string>
     <!-- Strings related to data sets -->
-    <string name="title_activity_data_sets">Your data sets</string>
+    <string name="title_activity_data_sets" translatable="false">Your data sets</string>
     <string name="no_data_sets_found">No data sets found</string>
     <!-- Strings related to data set reports -->
     <string name="title_activity_data_set_reports">Your data set reports</string>
     <string name="no_data_set_reports_found">No data set reports found</string>
     <!-- Strings related to enrollment forms -->
-    <string name="title_activity_enrollment_form">Enrollment form</string>
-    <string name="title_activity_event_form">Event form</string>
+    <string name="title_activity_enrollment_form" translatable="false">Enrollment form</string>
+    <string name="title_activity_event_form" translatable="false">Event form</string>
     <string name="date_button_text">Click to select date</string>
-    <string name="yes">Yes</string>
+    <string name="yes" translatable="false">Yes</string>
     <string name="no">No</string>
 </resources>
